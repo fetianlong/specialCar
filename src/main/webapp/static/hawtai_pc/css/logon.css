@@ -1,0 +1,89 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "微软雅黑", "Microsoft YaHei", FreeSans, Arimo, "Droid Sans","wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", Arial, sans-serif; font-size:12px; background:#ffffff url(../imgs/logonsbj.jpg) no-repeat;
+}
+
+a {
+	text-decoration: none;
+	color: #333333;	
+	transition: all 0.2s linear;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+}
+
+a:link, a:visited {
+	
+	text-decoration: none;
+}
+	
+a:hover, a:active {
+	
+	text-decoration: none;
+}
+.Headers{ padding:0;}
+.topbs { background:#ffffff;}
+.piclogo { padding:12px 0;}
+.textin { padding:30px 0 0 0; text-align:right;}
+.inCarousel { width:100%; height:auto; 
+}
+.left_in { padding-top:15%; }
+.logonbox { border:6px solid #C5E5F9; background-color:#ffffff; border-radius:10px; margin-top:15%;  padding:20px 20px;}
+.logontops { text-align:center;}
+.LoginBlock {
+	padding:0px 25px 0 25px;
+	
+}
+
+
+.form-group { margin-top:10px; margin-bottom:0;}
+.btn {padding:10px 15px;}
+.LoginBlock .Corner {
+	position: absolute;
+	width: 0;
+	height: 0;
+	margin: 1px;
+}
+.LoginBlock .input-group-addon {
+	background: #ffffff;
+	color: #FFF;
+	border-color: #c4c4c4;
+	border-radius: 5px;
+}
+
+.LoginBlock .form-control {
+	border-radius: 5px;
+	border-left: none;
+	border:1px solid #c4c4c4; left:-5px;
+}
+.LoginBlock .form-height {
+   height:40px;
+}
+
+.LoginBlock .ForgetPW {
+	color: #5D9CEC;
+	text-decoration: no;
+}
+
+.LoginBlock .help-block {
+	color: #f43535;
+	background: #fbe2e2;
+	border: solid 1px #f43535;
+	padding: 0 3px; 
+	margin-bottom: 0;
+}
+
+.LoginBlock .help-block .fa {
+	color: #f43535;
+	margin-right: 5px;
+}
+.focus.btn, .btn:focus, .btn:hover { color:#ffffff;}
+.SubmitButton {
+	background:#15BCFB ;
+	border-radius: 5px;
+	color: #FFF;
+	text-decoration: none; font-size:20px; margin-top:10px; margin-bottom:2px;
+}
+.fows { position:fixed; bottom:0; width:100%; height:190px; background:url(../imgs/bj-bjs.png) no-repeat;}

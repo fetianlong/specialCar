@@ -1,0 +1,116 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "微软雅黑", "Microsoft YaHei", FreeSans, Arimo, "Droid Sans","wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", Arial, sans-serif; font-size:12px;
+}
+
+a {
+	text-decoration: none;
+	color: #333333;	
+	transition: all 0.2s linear;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+}
+
+a:link, a:visited {
+	
+	text-decoration: none;
+}
+	
+a:hover, a:active {
+	
+	text-decoration: none;
+}
+.Navbbox {background:#3DB8F7; border:0;}
+.logopic { margin:16px 0; padding:0;}
+
+.NavBarLinkBlock {
+	display: block; 
+	border: none;
+}
+
+.MainNavBar { 
+	font-size: 16px;
+	padding: 0;
+	margin: 0;
+	text-align:center;
+}
+
+.MainNavBar li {
+	display:inline-table;
+	list-style: none;
+	padding:27px 10px 0 27px;
+}
+.MainNavBar li a {
+	color: #FFFFFF;
+	text-decoration: none;
+	padding-bottom:25px;
+}
+.MainNavBar li a:hover {
+	color:#FFFFFF;
+	border-bottom:2px solid #FFFFFF;
+}
+.MainNavBar li a.hover {
+	color:#ffffff;
+	border-bottom:2px solid #FFFFFF;
+}
+.xuan_c { text-align:right; padding:0;}
+
+
+.navbar-default .navbar-nav > li > a { color:#4f4f4d; font-size:18px;}
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {color:#5D9CEC;}
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a.hover {color:#5D9CEC;}
+
+#myCarousel {
+	margin: 75px 0 0 0;
+}
+.handbj { background: url(../imgs/bj001.png) top center no-repeat;background-size:100% auto; width:100%;}
+.handpic { margin:5%;text-align:right;} 
+.handpic img { width:100%;
+	height:auto
+}
+.handtext { padding:100px 50px;  color:#ffffff;} 
+.handtext h1 { font-weight:bold;}
+.handtext h3 { padding-top:15px;}
+.handtext .linewei { padding-top:80px;}
+.handtext .linewei .marind {margin-top:15px;}
+
+.processpic { background:url(../imgs/guocheng.png) top center no-repeat; background-size:100% auto; height:1230px;}
+
+.Footer { width:100%; clear:both;
+	background: #373737;
+	padding:50px 0 40px 0;
+	color: #CAD1D7;
+	font-weight: bold;
+	
+}
+.distan { padding-top:25px;}
+.interv{ padding-top:10px; text-align:center;}
+.inttan {text-align:center;}
+.Section1 .swiper-container {
+    width: 100%;
+}
+
+
+
+.focus{width:100%; margin-top:20px;}
+.focus .Carocount{width:100%; height:465px; position:relative;overflow:hidden;}
+.focus .Carocount li{position:absolute; left:0; top:0; width:100%; height:auto;  z-index:1; opacity:0; filter:alpha(opacity=0);}
+.focus .Carocount li.active{z-index:2;}
+.focus .Carocount li p{display:none;}
+.focus .Carocount li img{width:100%;height:auto;}
+
+.focus .Carotop{width:100%;}
+.focus .Carotop ul .xiant {float:left; width:109px; height:114px; background:url(../imgs/intopic_du.jpg) center no-repeat;  background-size:100% auto; cursor:none;  }
+.focus .Carotop ul .xiant2 { float:left;width:109px; height:114px;background:url(../imgs/intopic_du2.jpg) center no-repeat; background-size:100% auto;cursor:none;}
+.focus .Carotop .xiant3 { background:url(../imgs/lunpi2.jpg) center no-repeat; background-size:100% auto; }
+.focus .Carotop li{ float:left; width:auto;height:auto; overflow:hidden; margin-bottom:10px;cursor: pointer; list-style:none; margin-right:50px;}
+.focus .Carotop li:hover,.focus .Carotop li.active{color:#000;}
+.focus .Carotop li i{ width:114px; height:114px; float:left; margin-right:50px;}
+.focus .Carotop li i.i1{ background:url(../imgs/intopic_01.jpg) center no-repeat; background-size:100% auto;}
+.focus .Carotop li i.i2{ background:url(../imgs/intopic_02.jpg) center no-repeat; background-size:100% auto;}
+.focus .Carotop li i.i3{ background:url(../imgs/intopic_03.jpg) center no-repeat; background-size:100% auto;}
+.focus .Carotop li:hover i.i1,.focus .Carotop li.active i.i1{ background:url(../imgs/intopic_01-1.jpg) center no-repeat; background-size:100% auto;}
+.focus .Carotop li:hover i.i2,.focus .Carotop li.active i.i2{ background:url(../imgs/intopic_02-1.jpg) center no-repeat; background-size:100% auto;}
+.focus .Carotop li:hover i.i3,.focus .Carotop li.active i.i3{ background:url(../imgs/intopic_03-1.jpg) center no-repeat; background-size:100% auto;}

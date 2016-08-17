@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huatai.special.dao.MenuDao">
+	<resultMap type="menu" id="menuResult">
+		<result property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result property="parentId" column="parentId" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result property="name" column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result property="url" column="url" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result property="newUrl" column="NewUrl" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result property="ordIndex" column="ordIndex" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+		<result property="issued" column="issued" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+		<result property="isDeleteFlag" column="isDeleteFlag" jdbcType="BIT" javaType="java.lang.Boolean"/>
+		<result property="createrId" column="createrId" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result property="createrName" column="createrName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result property="menuType" column="menuType" jdbcType="VARCHAR" javaType="java.lang.String"/>
+		<result property="createDateTime" column="createDateTime" jdbcType="DATE" javaType="java.util.Date"/>
+		<result property="netWork" column="netWork" jdbcType="BIGINT" javaType="java.lang.Long"/>
+	</resultMap>
+	<insert id="insertMenu" parameterType="menu" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO menu (parentId, NAME, Url, NewUrl, OrdIndex, IsDeleteFlag, CreaterId, CreaterName, CreateDateTime,menuType,issued,netWork)
+		VALUES(#{parentId}, #{name}, #{url}, #{newUrl}, #{ordIndex}, #{isDeleteFlag}, #{createrId}, #{createrName}, #{createDateTime},#{menuType},#{issued},#{netWork});
+	</insert>
+	<update id="updateMenuById" parameterType="menu">
+		UPDATE menu 
+		<set>
+			<if test="parentId != null" >
+	        	parentId = #{parentId},
+	      	</if>
+			<if test="name != null" >
+	        	Name=#{name},
+	      	</if>
+			<if test="url != null" >
+	        	Url=#{url},
+	      	</if>
+			<if test="ordIndex != null" >
+	        	OrdIndex=#{ordIndex},
+	      	</if>
+			<if test="newUrl != null" >
+	        	NewUrl=#{newUrl},
+	      	</if>
+			<if test="isDeleteFlag != null" >
+	        	IsDeleteFlag=#{isDeleteFlag},
+	      	</if>
+			<if test="menuType != null" >
+	        	menuType=#{menuType},
+	      	</if>
+			<if test="issued != null" >
+	        	issued=#{issued},
+	      	</if>
+		</set>
+		WHERE Id = #{id}
+	</update>
+	<delete id="deleteMenuById" parameterType="java.lang.Long">
+		DELETE FROM menu WHERE ID=#{id} or parentId=#{id}
+	</delete>
+	<select id="selectMenuLimit" resultMap="menuResult">
+		select t1.ID, t1.parentId, t1.NAME, t1.Url, t1.NewUrl, t1.OrdIndex, t1.IsDeleteFlag, t1.CreaterId, t1.CreaterName, t1.CreateDateTime,t1.menuType,t1.issued,t1.netWork from menu t1
+ 		where t1.IsDeleteFlag = 0
+	    <if test="params.parentId != null">
+			AND t1.parentId = #{params.parentId}
+		</if>
+	    <if test="params.name != null">
+			AND t1.name like #{params.name}
+		</if>
+		ORDER BY t1.ID ASC
+	</select>
+	<select id="selectMenuById" parameterType="java.lang.Long" resultMap="menuResult">
+		select t1.ID, t1.parentId, t1.NAME, t1.Url, t1.NewUrl, t1.OrdIndex, t1.IsDeleteFlag, t1.CreaterId, t1.CreaterName, t1.CreateDateTime,t1.menuType,t1.issued from menu t1
+		where t1.ID = #{id}
+		ORDER BY t1.OrdIndex ASC
+	</select>
+	<select id="selectAllMenuIsDeleteFlag" resultMap="menuResult">
+		select t1.ID, t1.parentId, t1.NAME, t1.Url, t1.NewUrl, t1.OrdIndex, t1.IsDeleteFlag, t1.CreaterId, t1.CreaterName, t1.CreateDateTime,t1.menuType,t1.issued,t1.netWork from menu t1
+		<where>
+			t1.IsDeleteFlag = 0
+		</where>
+		ORDER BY t1.OrdIndex ASC
+	</select>
+	<select id="selectAllMenu" resultMap="menuResult">
+		select t1.ID, t1.parentId, t1.NAME, t1.Url,t1.newUrl, t1.OrdIndex, t1.IsDeleteFlag, t1.CreaterId, t1.CreaterName, t1.CreateDateTime,t1.menuType,t1.issued from menu t1
+		where 
+		t1.IsDeleteFlag = 0
+		ORDER BY t1.OrdIndex ASC
+	</select>
+	<select id="findParentMenu" resultMap="menuResult">
+		select t1.ID,t1.NAME from menu t1
+		<where>
+			t1.ParentId is null 
+			AND t1.IsDeleteFlag = 0 
+		</where>
+		ORDER BY t1.OrdIndex ASC
+	</select>
+	<select id="selectAllMenuByRoleType" resultMap="menuResult">
+		select t1.ID, t1.parentId, t1.NAME, t1.Url, t1.NewUrl, t1.OrdIndex, t1.IsDeleteFlag, t1.CreaterId, t1.CreaterName, t1.CreateDateTime,t1.menuType,t1.issued,t1.netWork from menu t1
+		INNER JOIN (SELECT t.Menu_ID from role_menu t where id in (select t3.id from Role t3 where t3.roleType = #{roleType})) t2 
+		ON t1.ID = t2.Menu_ID  AND t1.IsDeleteFlag = 0
+		ORDER BY t1.OrdIndex ASC
+	</select>
+	<select id="selectMenuByUserInfoId" resultMap="menuResult">
+		SELECT DISTINCT t3.ID, t3.NAME, t3.Url, t3.parentId, t3.OrdIndex, t3.IsDeleteFlag, t3.CreaterId, t3.CreaterName, t3.CreateDateTime,t3.menuType,t3.issued,t3.netWork
+		FROM Role_UserInfo t1
+		INNER JOIN Role_Menu t2 ON t2.Role_ID = t1.Role_ID
+		INNER JOIN Menu t3 ON t3.ID = t2.Menu_ID
+		WHERE t1.UserInfo_ID = #{userInfoId} AND t3.IsDeleteFlag = 0 
+		AND t3.parentId IS NULL
+		ORDER BY t3.OrdIndex ASC 
+	</select>
+	<select id="selectMenuByParentId" parameterType="java.lang.Long" resultMap="menuResult">
+		<!-- SELECT t3.ID, t3.NAME, t3.Url,t3.ParentId, t3.OrdIndex, t3.IsDeleteFlag, t3.CreaterId, t3.CreaterName, t3.CreateDateTime,t3.menuType,t3.issued -->
+		SELECT DISTINCT t3.ID, t3.NAME, t3.Url, t3.NewUrl, t3.ParentId, t3.OrdIndex, t3.IsDeleteFlag, t3.CreaterId, t3.CreaterName, t3.CreateDateTime,t3.menuType,t3.issued,t3.netWork
+		FROM Role_UserInfo t1
+		INNER JOIN Role_Menu t2 ON t2.Role_ID = t1.Role_ID 
+		INNER JOIN Menu t3 ON t3.ID = t2.Menu_ID
+		WHERE t3.IsDeleteFlag = 0 AND t3.parentId = #{parentId}
+		ORDER BY t3.OrdIndex ASC 
+	</select>
+	<select id="getMyMenuByParentId" parameterType="java.lang.Long" resultMap="menuResult">
+		<!-- 
+		SELECT DISTINCT t3.ID, t3.NAME, t3.Url, t3.NewUrl, t3.ParentId, t3.OrdIndex, t3.IsDeleteFlag, t3.CreaterId, t3.CreaterName, t3.CreateDateTime,t3.menuType,t3.issued,t3.netWork
+		FROM Role_UserInfo t1
+		INNER JOIN Role_Menu t2 ON t2.Role_ID = t1.Role_ID 
+		INNER JOIN Menu t3 ON t3.ID = t2.Menu_ID
+		WHERE 
+		t3.IsDeleteFlag = 0 AND 
+		t3.netWork != 1 AND (t3.parentId = #{parentId} or t3.id = #{parentId})
+		ORDER BY t3.OrdIndex ASC 
+		 -->
+		select t3.* from menu t3 WHERE (t3.parentId = #{parentId} or t3.id = #{parentId})
+	</select>
+<!-- 	根据当前一级菜单获取当前用户的二级菜单 -->
+	<select id="selectSellerMenuByUserInfoId" parameterType="menu" resultMap="menuResult">
+		SELECT DISTINCT t1.id,t1.name,t1.parentId,t1.url,t1.NewUrl, t1.OrdIndex, t1.IsDeleteFlag, t1.CreaterId, t1.CreaterName, t1.CreateDateTime,t1.menuType,t1.issued,t1.netWork 
+		FROM menu t1 LEFT JOIN role_menu t2 ON t2.Menu_ID=t1.ID LEFT JOIN role_userinfo t3 ON t3.Role_ID=t2.Role_ID
+		WHERE t3.UserInfo_ID=${createrId} AND t1.ParentId=${parentId}
+		ORDER BY t1.ParentId ASC, t1.OrdIndex ASC 
+	</select>
+	<select id="findAllMenuByRole" resultMap="menuResult">
+		SELECT DISTINCT t3.ID, t3.parentId, t3.NAME, t3.Url, t3.NewUrl, t3.OrdIndex, t3.IsDeleteFlag, t3.CreaterId, t3.CreaterName, t3.CreateDateTime,t3.menuType,t3.issued,t3.netWork
+		FROM Role_Menu t2 
+		INNER JOIN Menu t3 ON t3.ID = t2.Menu_ID
+		WHERE t2.Role_ID = #{roleId} AND t3.IsDeleteFlag = 0
+		ORDER BY t3.ParentId ASC, t3.OrdIndex ASC 
+	</select>
+</mapper>

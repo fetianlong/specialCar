@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huatai.special.dao.RoleMenuDao">
+	<resultMap type="roleMenu" id="roleMenuResult">
+		<result property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result property="roleId" column="role_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result property="menuId" column="menu_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result property="netWork" column="netWork" jdbcType="BIGINT" javaType="java.lang.Long"/>
+	</resultMap>
+	
+	<insert id="insertRoleMenu" parameterType="ArrayList" useGeneratedKeys="true">
+		INSERT INTO Role_Menu (Role_ID, Menu_ID, netWork)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >  
+	      (#{item.roleId}, #{item.menuId}, #{item.netWork})
+	    </foreach>
+	</insert>
+	<delete id="deleteRoleMenuByMenuId" parameterType="java.lang.Long">
+		DELETE FROM Role_Menu WHERE menu_id=#{menuId}
+	</delete>
+	
+	<delete id="deleteRoleMenuByRoleId" parameterType="java.lang.Long">
+		DELETE FROM Role_Menu WHERE Role_id=#{roleId}
+	</delete>
+</mapper>

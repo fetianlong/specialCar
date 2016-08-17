@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+	default-lazy-init="true">
+
+	<description>Shiro安全配置</description>
+
+	<!-- Shiro's main business-tier object for web-enabled applications -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroDbRealm" />
+		<property name="sessionManager" ref="sessionManager" />	
+		<property name="cacheManager" ref="redisCacheManager" />
+	</bean>
+
+	<!-- 項目自定义的Realm, 所有accountService依赖的dao都需要用depends-on声明 -->
+	<bean id="shiroDbRealm" class="com.huatai.special.shiro.ShiroDbRealm">
+		<property name="userInfoService" ref="userInfoService"/>
+	</bean>
+	
+	<!-- Shiro Filter -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/" />
+		<property name="filterChainDefinitions">
+			<value>
+				/login = authc
+				/review/** = user
+				/logout = logout
+				/userCenter/** = authc
+			</value>
+		</property>
+	</bean>
+	
+    <!-- sessionManager -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+	    <property name="sessionDAO" ref="redisSessionDAO" />
+	</bean>
+	
+	<!-- shiro redisManager -->
+	<bean id="redisManager" class="com.huatai.special.redis.RedisManager">
+	    <property name="host" value="10.1.6.191"/>
+	    <property name="port" value="6379"/>
+	    <property name="expire" value="1800"/>
+	    <!-- optional properties:
+	    <property name="timeout" value="10000"/>
+	    <property name="password" value="123456"/>
+	    -->
+	</bean>
+	
+	<!-- redisSessionDAO -->
+	<bean id="redisSessionDAO" class="com.huatai.special.redis.RedisSessionDAO">
+	    <property name="redisManager" ref="redisManager" />
+	</bean>
+	
+	<bean id="redisCacheManager" class="com.huatai.special.redis.RedisCacheManager">
+	    <property name="redisManager" ref="redisManager" />
+	</bean>
+	
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+</beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huatai.special.dao.RoleUserInfoDao">
+	<resultMap type="roleUserInfo" id="roleUserInfoResult">
+		<result property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result property="userInfoId" column="UserInfo_ID" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result property="roleId" column="Role_ID" jdbcType="BIGINT" javaType="java.lang.Long"/>
+	</resultMap>
+	<insert id="insertRoleUserInfo" parameterType="roleUserInfo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO Role_UserInfo (UserInfo_ID, Role_ID)
+		VALUES(#{userInfoId}, #{roleId})
+	</insert>
+	<delete id="deleteRoleUserInfoById" parameterType="java.lang.Long">
+		DELETE FROM Role_UserInfo 
+		WHERE id = #{roleUserInfoId}
+	</delete>
+	<delete id="deleteRoleUserByRoleId" parameterType="java.lang.Long">
+		DELETE FROM Role_UserInfo WHERE Role_id=#{roleId}
+	</delete>
+</mapper>

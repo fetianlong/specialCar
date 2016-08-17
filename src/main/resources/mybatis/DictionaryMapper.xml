@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huatai.special.dao.DictionaryDao" >
+  <resultMap id="DictionaryResultMap" type="com.huatai.special.model.Dictionary" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code_value" property="codeValue" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="isFlag" property="isflag" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Dictionary_Column_List" >
+    id, code, name, content, parent_code, create_time, create_user_id, update_time, isFlag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="DictionaryResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Dictionary_Column_List" />
+    from dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="add" parameterType="com.huatai.special.model.Dictionary" useGeneratedKeys="true" keyProperty="id">
+    insert into dictionary (code, name, 
+      content, parent_code, create_time, 
+      create_user_id, update_time, isFlag,code_value
+      )
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=VARCHAR}, #{isflag,jdbcType=BIT},#{codeValue}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huatai.special.model.Dictionary" useGeneratedKeys="true" keyProperty="id">
+    insert into dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="parentCode != null" >
+        parent_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isflag != null" >
+        isFlag,
+      </if>
+      <if test="codeValue != null" >
+        code_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isflag != null" >
+        #{isflag,jdbcType=BIT},
+      </if>
+      <if test="codeValue != null" >
+        #{codeValue},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huatai.special.model.Dictionary" >
+    update dictionary
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        parent_code = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isflag != null" >
+        isFlag = #{isflag,jdbcType=BIT},
+      </if>
+      <if test="codeValue != null" >
+        code_value = #{codeValue},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="com.huatai.special.model.Dictionary" >
+    update dictionary
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      parent_code = #{parentCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      isFlag = #{isflag,jdbcType=BIT}
+      code_value = #{codeValue}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="deleteById" parameterType="com.huatai.special.model.Dictionary" >
+    update dictionary
+    set isFlag = 0
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectDictionaryLimit"  resultMap="DictionaryResultMap">
+        SELECT *
+        FROM dictionary t
+        where isFlag=1
+		<if test="params.code != null">
+			and t.code = #{params.code}
+		</if>
+		<if test="params.isflag != null">
+			and t.isflag = #{params.isflag}
+		</if>       
+		<if test="params.parentCode != null">
+			and t.parent_code = #{params.parentCode}
+		</if>       
+    </select>
+    
+    <select id="getListDictionary" parameterType="com.huatai.special.model.Dictionary"  resultMap="DictionaryResultMap">
+        SELECT *
+        FROM dictionary t
+        where  isFlag=1
+		<if test="code != null">
+			and t.code = #{code}
+		</if>
+		<if test="isflag != null">
+			and t.isflag = #{isflag}
+		</if>       
+		<if test="parentCode != null">
+			and t.parent_code = #{parentCode}
+		</if>       
+    </select>
+    
+    <select id="getDictionaryByCode" parameterType="String" resultMap="DictionaryResultMap">
+    	select * from dictionary t
+    	where isFlag=1
+			and t.code = #{code}
+    </select>
+    
+    <select id="getDictionaryById" parameterType="Long" resultMap="DictionaryResultMap">
+    	select * from dictionary t
+    	where t.id = #{id}
+    </select>
+    
+    <select id="getParentDictionary" parameterType="String" resultMap="DictionaryResultMap">
+    	select * from dictionary d where d.parent_code is NULL
+    </select>
+</mapper>
